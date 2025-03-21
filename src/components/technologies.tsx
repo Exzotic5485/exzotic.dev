@@ -55,7 +55,7 @@ export function Technologies() {
         <div className="relative w-full py-4 h-auto">
             <div className="absolute top-0 left-0 h-full w-20 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
             <div className="absolute top-0 right-0 h-full w-20 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
-            <div className="w-full flex items-center justify-center gap-12 overflow-x-scroll sm:overflow-x-visible">
+            <div className="w-full flex items-center justify-evenly gap-12 flex-wrap">
                 {TECHNOLOGIES.map((tech) => (
                     <Tooltip key={tech.label}>
                         <TooltipContent>{tech.label}</TooltipContent>

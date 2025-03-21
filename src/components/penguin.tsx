@@ -2,7 +2,7 @@
 import PenguinIcon from "@/components/svg/penguin-icon";
 import { useEffect, useRef } from "react";
 
-const IGNORED_ELEMENTS = ["A", "BUTTON"];
+const IGNORED_ELEMENTS = ["A", "BUTTON", "IMG", "SVG"];
 
 const extractPx = (str: string) => parseFloat(str.replace(/[^\d.]/g, ""));
 
@@ -43,39 +43,41 @@ export function Penguin() {
             const destY = curY + speed * Math.sin(angle);
             const destX = curX + speed * Math.cos(angle);
 
-            movingPenguin.style.top = destY + "px";
-            movingPenguin.style.left = destX + "px";
-
             if (destX < curX) {
                 movingPenguin.style.setProperty("--scale", "-1");
             } else {
                 movingPenguin.style.setProperty("--scale", "1");
             }
-
+            
+            movingPenguin.style.top = destY + "px";
+            movingPenguin.style.left = destX + "px";
+            
             if (
                 Math.abs(targetY - destY) > speed ||
                 Math.abs(targetX - destX) > speed
             ) {
                 frame = requestAnimationFrame(() =>
                     handleWaddle(x, y, returnHome)
+            );
+        } else {
+            movingPenguin.style.top = targetY + "px";
+            movingPenguin.style.left = targetX + "px";
+            
+            if (returnHome) {
+                frame = requestAnimationFrame(() =>
+                    handleWaddle(
+                        rect.x + rect.width / 2,
+                        rect.y + rect.height / 2,
+                        false
+                    )
                 );
             } else {
-                movingPenguin.style.top = targetY + "px";
-                movingPenguin.style.left = targetX + "px";
-
-                if (returnHome) {
-                    frame = requestAnimationFrame(() =>
-                        handleWaddle(
-                            rect.x + rect.width / 2,
-                            rect.y + rect.height / 2,
-                            false
-                        )
-                    );
-                } else {
-                    staticPenguin.classList.remove("invisible");
-                    movingPenguin.classList.remove("waddle");
-                    movingPenguin.classList.add("invisible");
-                }
+                staticPenguin.classList.remove("invisible");
+                movingPenguin.classList.remove("waddle");
+                movingPenguin.classList.add("invisible");
+                
+                movingPenguin.style.setProperty("--scale", "1");
+            }
             }
         };
 

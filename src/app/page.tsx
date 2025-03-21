@@ -16,7 +16,7 @@ export default function Home() {
                     <img
                         src="https://avatars.githubusercontent.com/u/61587328?v=4"
                         alt=""
-                        className="rounded-full size-28"
+                        className="rounded-full size-28 hover:rotate-360 hover:scale-120 duration-500 transition-all"
                     />
                     <div className="space-y-2">
                         <h1 className="text-5xl tracking-tighter">
